@@ -42,7 +42,7 @@
             font-size: 20px;
             text-align: center;
             float: left;
-            width: 12.5%;
+            width: 15%;
             height: 40px;
             border: 1px solid red;
         }
@@ -56,14 +56,14 @@
             text-align: center;
             float: left;
             height: 40px;
-            width: 75%;
+            width: 70%;
         }
         
         #days div {
             width: 12.5%;
         }
         
-        #date {
+        .date {
             margin-top: 10px;
             float: right;
             width: 87.5%;
@@ -80,7 +80,6 @@
             border: 1px solid black;
             background-color: rgba(0, 0, 0, 0.15);
             font-size: 32px;
-            border-radius: 5px;
         }
         
         #displaydate{
@@ -94,7 +93,7 @@
                 
         }
         #reset:hover,
-        .day:hover{
+        .day:hover {
             color: blue;
             border: 1px solid red;
             font-weight: bold;
@@ -103,7 +102,7 @@
 
         #reset{
             padding: 10px;
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 24px;
             border: 1px solid red;
             background-color: rgba(0, 0, 0, 0.15);
@@ -118,12 +117,12 @@
         <div id="Head"><b>Calendar</b></div>
         <div id="year">
             <button id="prevyear" onclick="prevyear()">prev</button>
-            <div id="curyear">Current Year</div>
+            <div id="curyear" onclick="selectyear()">Current Year</div>
             <button id="nextyear" onclick="nextyear()">next</button>
         </div>
         <div id="month">
             <button id="prevmonth" onclick="prevmonth()">prev</button>
-            <div id="curmonth">Current Month</div>
+            <div id="curmonth" onclick="selectmonth()">Current Month</div>
             <button id="nextmonth" onclick="nextmonth()">next</button>
         </div>
         <div id="days">
@@ -136,7 +135,7 @@
             <div>Fri</div>
             <div>Sat</div>
         </div>
-        <div id="date">
+        <div class="date">
 
             <div class="day" style = "color:red;" onclick="display(this)">Sun</div>
             <div class="day" onclick="display(this)">Mon</div>
@@ -188,15 +187,21 @@
             var curdate = new Date();
             var curyear = curdate.getFullYear();
             var curmonth = curdate.getMonth();
+            var curday = curdate.getUTCDay() + 1;
+            if(curday == 7){
+                curday = 0;
+            }
+            console.log(curday);
             var year = document.getElementById("curyear");
             var month = document.getElementById("curmonth");
             var date = document.getElementsByClassName("day");
             var displaydate = document.getElementById("displaydate");
             var dispdate;
-
+            
+            var d = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
             var maxd = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
             var m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
+             
             function isleap() {
                 if (curyear % 4 == 0) {
                     if (curyear % 100 == 0 && curyear % 400 != 0) {
@@ -208,14 +213,15 @@
             }
 
             function assigndates() {
+
                 maxvalue = maxd[curmonth];
                 
                 if (isleap() && curmonth == 1) {
                     maxvalue = 29;
                 } 
 
-                var d = m[curmonth] + " 1," + curyear;
-                var tempdate = new Date(d);
+                var dt = m[curmonth] + " 1," + curyear;
+                var tempdate = new Date(dt);
 
                 var start = tempdate.getUTCDay() + 1;
                 if (start == 7) {
@@ -241,8 +247,21 @@
                     date[0].innerHTML = 30;
                     date[1].innerHTML = 31;
                 }
-
+                
+                document.getElementById("prevyear").innerHTML = curyear - 1;
+                document.getElementById("nextyear").innerHTML = curyear + 1;
+                if(curmonth==0){
+                    document.getElementById("prevmonth").innerHTML = "December";
+                }else{
+                    document.getElementById("prevmonth").innerHTML = m[curmonth - 1];
+                }
+                if(curmonth==11){
+                    document.getElementById("nextmonth").innerHTML = "January";
+                }else{
+                    document.getElementById("nextmonth").innerHTML = m[curmonth + 1];
+                }
             }
+
             assigndates();
 
             year.innerHTML = curyear;
@@ -255,11 +274,37 @@
                 assigndates();
             }
 
+            function selectyear(){
+                resetcolors();
+                var yr = parseInt(prompt("Enter Year",curyear));
+                if(yr>0){
+                    curyear = yr;
+                    year.innerHTML = curyear;
+                    assigndates(); 
+                }else{
+                    alert("Not Valid");
+                } 
+                  
+            }
+
             function nextyear() {
                 resetcolors();
                 curyear += 1;
                 year.innerHTML = curyear;
                 assigndates();
+            }
+
+            function selectmonth(){
+                resetcolors();
+                var mon = parseInt(prompt("Enter Month",curmonth+1));
+                if(mon>=1 && mon<=12){
+                    curmonth = mon - 1;
+                    month.innerHTML = m[curmonth];
+                    assigndates();
+                }else{
+                    alert("Not Valid");
+                } 
+
             }
 
             function prevmonth() {
@@ -285,6 +330,13 @@
             }
 
             function display(x) {
+                var dt = m[curmonth] + " " + x.innerHTML + "," + curyear;
+                var tempdate = new Date(dt);
+                var tempday = tempdate.getUTCDay() + 1;
+                if(tempday == 7){
+                    tempday = 0;
+                }
+
                 if (x.innerHTML == "") {
                     displaydate.innerHTML = "Wrong Choice";
                     displaydate.style.color = "red";
@@ -294,7 +346,7 @@
                     x.style.backgroundColor = "black";
                     x.style.borderColor = "red";
                     x.style.color = "dodgerblue";
-                    dispdate = x.innerHTML + " " + m[curmonth] + " " + curyear;
+                    dispdate = x.innerHTML + " " + m[curmonth] + " " + curyear + ", " + d[tempday];
                     displaydate.innerHTML = dispdate;
                 }
             }
@@ -329,17 +381,20 @@
                 curdate = new Date();
                 curyear = curdate.getFullYear();
                 curmonth = curdate.getMonth();
+                curday = curdate.getUTCDay() + 1;
+                if(curday == 7){
+                    curday = 0;
+                }
                 year.innerHTML = curyear;
                 month.innerHTML = m[curmonth];
                 assigndates();
-
-                dispdate = parseInt(curdate.toString().slice(8, 10)) + " " + m[curmonth] + " " + curyear;
+                dispdate = parseInt(curdate.toString().slice(8, 10)) + " " + m[curmonth] + " " + curyear + ", " + d[curday];
                 displaydate.innerHTML = dispdate;
                 var y =  parseInt(curdate.toString().slice(8, 10));
                 highlight(y);
             } 
             
-            dispdate = parseInt(curdate.toString().slice(8, 10)) + " " + m[curmonth] + " " + curyear;
+            dispdate = parseInt(curdate.toString().slice(8, 10)) + " " + m[curmonth] + " " + curyear + ", " + d[curday];
             displaydate.innerHTML = dispdate;
             var y =  parseInt(curdate.toString().slice(8, 10));
             highlight(y);
