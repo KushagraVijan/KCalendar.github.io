@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>KCalendar</title>
+    <style>
+        #calendar {
+            padding: 10px;
+            width: 800px;
+            height: 640px;
+            border: 2px solid red;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        #Head {
+            color: red;
+            text-align: center;
+            font-size: 28px;
+            width: 100%;
+            height: 40px;
+        }
+        
+        #month,
+        #year,
+        #days {
+            width: 100%;
+            height: 40px;
+            border: 1px solid black;
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+        
+        #month,
+        #days {
+            margin-top: 10px;
+        }
+        
+        #prevmonth,
+        #nextmonth,
+        #nextyear,
+        #prevyear {
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            float: left;
+            width: 12.5%;
+            height: 40px;
+            border: 1px solid red;
+        }
+        
+        #days div,
+        #curmonth,
+        #curyear {
+            padding-top: 6px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            float: left;
+            height: 40px;
+            width: 75%;
+        }
+        
+        #days div {
+            width: 12.5%;
+        }
+        
+        #date {
+            margin-top: 10px;
+            float: right;
+            width: 87.5%;
+            height: 312px;
+        }
+        
+        .day {
+            padding-top: 5px;
+            margin: 5px;
+            text-align: center;
+            float: left;
+            width: 12.56%;
+            height: 45px;
+            border: 1px solid black;
+            background-color: rgba(0, 0, 0, 0.15);
+            font-size: 32px;
+        }
+        
+        #displaydate{
+            margin-top: 20px; 
+            float: right;
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+                
+        }
+        #reset:hover,
+        .day:hover{
+            color: blue;
+            border: 1px solid red;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        #reset{
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 24px;
+            border: 1px solid red;
+            background-color: rgba(0, 0, 0, 0.15);
+        }  
+
+        
+    </style>
+</head>
+
+<body>
+    <div id="calendar">
+        <div id="Head"><b>Calendar</b></div>
+        <div id="year">
+            <button id="prevyear" onclick="prevyear()">prev</button>
+            <div id="curyear">Current Year</div>
+            <button id="nextyear" onclick="nextyear()">next</button>
+        </div>
+        <div id="month">
+            <button id="prevmonth" onclick="prevmonth()">prev</button>
+            <div id="curmonth">Current Month</div>
+            <button id="nextmonth" onclick="nextmonth()">next</button>
+        </div>
+        <div id="days">
+            <div><b>Days</b></div>
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div id="date">
+
+            <div class="day" style = "color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style = "color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style = "color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style = "color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style = "color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+        </div>
+        <div id="displaydate"></div>
+        <div style="width:100%; float:right; text-align: center;">
+        <button id="reset" onclick="reset()">Reset</button>
+        </div>
+        
+        <script>
+            var curdate = new Date();
+            var curyear = curdate.getFullYear();
+            var curmonth = curdate.getMonth();
+            var year = document.getElementById("curyear");
+            var month = document.getElementById("curmonth");
+            var date = document.getElementsByClassName("day");
+            var displaydate = document.getElementById("displaydate");
+            var dispdate;
+
+            var maxd = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            function isleap() {
+                if (curyear % 4 == 0) {
+                    if (curyear % 100 == 0 && curyear % 400 != 0) {
+                        return false;
+                    }
+                        return true;
+                } 
+                    return false;
+            }
+
+            function assigndates() {
+                maxvalue = maxd[curmonth];
+                
+                if (isleap() && curmonth == 1) {
+                    maxvalue = 29;
+                } 
+
+                var d = m[curmonth] + " 1," + curyear;
+                var tempdate = new Date(d);
+
+                var start = tempdate.getUTCDay() + 1;
+                if (start == 7) {
+                    start = 0;
+                }
+                var i = 0;
+                var j = 1;
+                for (i = 0; i < 35; i++) {
+                    if (i < start || j > maxvalue) {
+                        date[i].innerHTML = "";
+                    } else {
+                        date[i].innerHTML = j;
+                        j++;
+                    }
+                }
+                if (start == 6 && maxvalue == 30) {
+                    date[0].innerHTML = 30;
+                }
+                if (start == 5 && maxvalue == 31) {
+                    date[0].innerHTML = 31;
+                }
+                if (start == 6 && maxvalue == 31) {
+                    date[0].innerHTML = 30;
+                    date[1].innerHTML = 31;
+                }
+
+            }
+            assigndates();
+
+            year.innerHTML = curyear;
+            month.innerHTML = m[curmonth];
+
+            function prevyear() {
+                resetcolors();
+                curyear -= 1;
+                year.innerHTML = curyear;
+                assigndates();
+            }
+
+            function nextyear() {
+                resetcolors();
+                curyear += 1;
+                year.innerHTML = curyear;
+                assigndates();
+            }
+
+            function prevmonth() {
+                resetcolors();
+                curmonth -= 1;
+                if (curmonth == -1) {
+                    curmonth = 11;
+                    prevyear();
+                }
+                month.innerHTML = m[curmonth];
+                assigndates();
+            }
+
+            function nextmonth() {
+                resetcolors();
+                curmonth += 1;
+                if (curmonth == 12) {
+                    curmonth = 0;
+                    nextyear();
+                }
+                month.innerHTML = m[curmonth];
+                assigndates();
+            }
+
+            function display(x) {
+                if (x.innerHTML == "") {
+                    displaydate.innerHTML = "Wrong Choice";
+                    displaydate.style.color = "red";
+                } else {               
+                    resetcolors();
+                    displaydate.style.color = "black";
+                    x.style.backgroundColor = "black";
+                    x.style.borderColor = "red";
+                    x.style.color = "dodgerblue";
+                    dispdate = x.innerHTML + " " + m[curmonth] + " " + curyear;
+                    displaydate.innerHTML = dispdate;
+                }
+            }
+
+            function resetcolors(){
+                var k = 0;
+                for(k=0;k<35;k++){
+                    if(k%7 == 0){
+                        date[k].style.color = "red";    
+                    }else{
+                        date[k].style.color = "black";
+                    }
+                    date[k].style.backgroundColor = "rgba(0, 0, 0, 0.15)";
+                    date[k].style.borderColor = "black";
+                }
+            }
+
+            function highlight(y){
+                var k=0;
+                for(k=0;k<35;k++){
+                    if(date[k].innerHTML == y){
+                        date[k].style.color = "dodgerblue";
+                        date[k].style.backgroundColor = "black";
+                        date[k].style.borderColor = "red";
+                        break;
+                    }
+                }
+            }
+
+            function reset(){
+                resetcolors();
+                curdate = new Date();
+                curyear = curdate.getFullYear();
+                curmonth = curdate.getMonth();
+                year.innerHTML = curyear;
+                month.innerHTML = m[curmonth];
+                assigndates();
+
+                dispdate = parseInt(curdate.toString().slice(8, 10)) + " " + m[curmonth] + " " + curyear;
+                displaydate.innerHTML = dispdate;
+                var y =  parseInt(curdate.toString().slice(8, 10));
+                highlight(y);
+            } 
+            
+            dispdate = parseInt(curdate.toString().slice(8, 10)) + " " + m[curmonth] + " " + curyear;
+            displaydate.innerHTML = dispdate;
+            var y =  parseInt(curdate.toString().slice(8, 10));
+            highlight(y);
+
+        </script>
+</body>
+
+</html>
