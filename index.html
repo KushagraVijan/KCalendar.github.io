@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>KCalendar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="calendar">
+        <div id="Head">Calendar</div>
+        <div id="year">
+            <button id="prevyear" onclick="prevyear()">prev</button>
+            <div id="curyear" onclick="selectyear()">Current Year</div>
+            <button id="nextyear" onclick="nextyear()">next</button>
+        </div>
+        <div id="month">
+            <button id="prevmonth" onclick="prevmonth()">prev</button>
+            <div id="curmonth" onclick="selectmonth()">Current Month</div>
+            <button id="nextmonth" onclick="nextmonth()">next</button>
+        </div>
+        <div id="days">
+            <div><b>Days</b></div>
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="date">
+
+            <div class="day" style="color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style="color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style="color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style="color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+            <div class="day" style="color:red;" onclick="display(this)">Sun</div>
+            <div class="day" onclick="display(this)">Mon</div>
+            <div class="day" onclick="display(this)">Tue</div>
+            <div class="day" onclick="display(this)">Wed</div>
+            <div class="day" onclick="display(this)">Thu</div>
+            <div class="day" onclick="display(this)">Fri</div>
+            <div class="day" onclick="display(this)">Sat</div>
+
+        </div>
+        <div id="displaydate"></div>
+        <div style="width:100%; float:right; text-align: center;">
+            <button id="reset" onclick="reset()">Reset</button>
+        </div>
+    </div>
+    <div style="color: red; font-size: 30px; padding-top: 10px;"> <u>Events</u>:</div>
+    <div id="events"></div>
+
+    <script src="calendar.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+#calendar {
+    padding: 10px;
+    width: 800px;
+    height: 640px;
+    border: 2px solid red;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#Head {
+    color: red;
+    text-align: center;
+    font-size: 28px;
+    width: 100%;
+    height: 40px;
+}
+
+#month,
+#year,
+#days {
+    width: 100%;
+    height: 40px;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+#month,
+#days {
+    margin-top: 10px;
+}
+
+#prevmonth,
+#nextmonth,
+#nextyear,
+#prevyear {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    float: left;
+    width: 15%;
+    height: 40px;
+    border: 1px solid red;
+}
+
+#days div,
+#curmonth,
+#curyear {
+    padding-top: 6px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    float: left;
+    height: 40px;
+    width: 70%;
+}
+
+#days div {
+    width: 12.5%;
+}
+
+.date {
+    margin-top: 10px;
+    float: right;
+    width: 87.5%;
+    height: 312px;
+}
+
+.day {
+    padding-top: 5px;
+    margin: 5px;
+    text-align: center;
+    float: left;
+    width: 12.56%;
+    height: 45px;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.15);
+    font-size: 32px;
+    border-radius: 5px;
+}
+
+#displaydate {
+    margin-top: 20px;
+    float: right;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#reset:hover,
+.day:hover {
+    font-weight: bold;
+}
+
+#reset {
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 24px;
+    border: 1px solid red;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+#events {
+    margin-top: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 800px;
+    height: auto;
+    color: blue;
+    font-size: 25px;
+    padding: 10px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border: 2px solid red;
+}
+
+body {
+    background-color: rgba(0, 0, 0, 0.05);
+}
